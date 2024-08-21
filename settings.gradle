@@ -1,3 +1,5 @@
 rootProject.name = 'mono-to-multi'
 
 include 'common'
+include 'order-service'
+include 'product-service'

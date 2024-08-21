@@ -13,17 +13,12 @@ java {
     }
 }
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    implementation project(':common')
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'mysql:mysql-connector-java:8.0.23'
@@ -37,4 +32,10 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.annotationProcessorPath = configurations.annotationProcessor.filter {
+        !it.name.contains("order-service")
+    }
 }
