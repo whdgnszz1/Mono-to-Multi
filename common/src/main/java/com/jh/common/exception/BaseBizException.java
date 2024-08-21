@@ -1,4 +1,4 @@
-package com.jh.monotomulti.common.exception;
+package com.jh.common.exception;
 
 public class BaseBizException extends RuntimeException {
 

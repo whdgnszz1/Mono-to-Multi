@@ -1,6 +1,6 @@
 package com.jh.monotomulti.product.service;
 
-import com.jh.monotomulti.common.exception.BizRuntimeException;
+import com.jh.common.exception.BizRuntimeException;
 import com.jh.monotomulti.order.dto.CreateOrderReqDto;
 import com.jh.monotomulti.product.entity.Product;
 import com.jh.monotomulti.product.repository.ProductRepository;

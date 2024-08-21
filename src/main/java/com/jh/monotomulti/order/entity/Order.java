@@ -1,6 +1,6 @@
 package com.jh.monotomulti.order.entity;
 
-import com.jh.monotomulti.common.entity.CommonEntity;
+import com.jh.common.entity.CommonEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

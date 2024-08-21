@@ -1,6 +1,6 @@
 package com.jh.monotomulti.order.controller;
 
-import com.jh.monotomulti.common.dto.ResponseMessage;
+import com.jh.common.dto.ResponseMessage;
 import com.jh.monotomulti.order.dto.CreateOrderReqDto;
 import com.jh.monotomulti.order.dto.CreateOrderResDto;
 import com.jh.monotomulti.order.service.OrderService;

@@ -1,6 +1,6 @@
 package com.jh.monotomulti.order.service;
 
-import com.jh.monotomulti.common.exception.BizRuntimeException;
+import com.jh.common.exception.BizRuntimeException;
 import com.jh.monotomulti.order.dto.CreateOrderReqDto;
 import com.jh.monotomulti.order.dto.CreateOrderResDto;
 import com.jh.monotomulti.order.entity.Order;
@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
             throw new BizRuntimeException("주문 처리 중 데이터베이스 오류가 발생했습니다.", e);
         } catch (BizRuntimeException e) {
             log.error("주문 처리 중 비즈니스 로직 오류 발생", e);
-            throw e;  // 이미 처리된 BizRuntimeException은 다시 던집니다.
+            throw e;
         } catch (Exception e) {
             log.error("주문 처리 중 예기치 않은 오류 발생", e);
             throw new BizRuntimeException("주문 처리 중 예기치 않은 오류가 발생했습니다.", e);

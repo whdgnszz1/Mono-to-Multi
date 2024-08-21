@@ -1,4 +1,4 @@
-package com.jh.monotomulti.common.enums;
+package com.jh.common.enums;
 
 public class ApiResponseContents {
     /** 200 메시지 접두문자 */

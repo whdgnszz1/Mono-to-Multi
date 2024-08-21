@@ -1,4 +1,4 @@
-package com.jh.monotomulti.common.dto;
+package com.jh.common.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

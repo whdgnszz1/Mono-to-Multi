@@ -1,7 +1,9 @@
-package com.jh.monotomulti.common.exception;
+package com.jh.common.exception;
 
-import com.jh.monotomulti.common.dto.ResponseMessage;
-import com.jh.monotomulti.common.enums.ApiResponseContents;
+import com.jh.common.dto.ResponseMessage;
+import com.jh.common.enums.ApiResponseContents;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,9 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @Slf4j
 @RestControllerAdvice
@@ -21,7 +20,6 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseEntity<ResponseMessage> handleBizRuntimeException(BizRuntimeException e) {
         log.error("BizRuntime Error: " + e.getErrorMessage(), e);
-
 
         ResponseMessage responseMessage = ResponseMessage.builder()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
