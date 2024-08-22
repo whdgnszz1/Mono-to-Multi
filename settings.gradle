@@ -1,5 +1,6 @@
 rootProject.name = 'mono-to-multi'
 
+include 'eureka-server'
 include 'common'
 include 'order-service'
 include 'product-service'
