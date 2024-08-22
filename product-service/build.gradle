@@ -17,9 +17,21 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    set('springCloudVersion', "2023.0.2")
+}
+
 dependencies {
     implementation project(':common')
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 }
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
 
 tasks.named('test') {
     useJUnitPlatform()
