@@ -41,6 +41,22 @@ services:
     networks:
       - commerce-network
 
+  product-service:
+    image: product-service:latest
+    container_name: product-service
+    depends_on:
+      - mysql
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/commerce
+      SPRING_DATASOURCE_USERNAME: test
+      SPRING_DATASOURCE_PASSWORD: test
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+    ports:
+      - "9001:9001"
+    networks:
+      - commerce-network
+
   gateway-service:
     image: gateway-service:latest
     container_name: gateway-service
