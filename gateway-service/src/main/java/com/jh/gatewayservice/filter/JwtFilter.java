@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -39,8 +40,7 @@ public class JwtFilter extends AbstractGatewayFilterFactory<JwtFilter.Config> {
 
             String authHeader = request.getHeaders().getOrEmpty(HttpHeaders.AUTHORIZATION).get(0);
             if (!authHeader.startsWith("Bearer ")) {
-                response.setStatusCode(HttpStatus.UNAUTHORIZED);
-                return response.setComplete();
+                return handleUnauthorized(response, "Invalid Authorization header format.");
             }
 
             String token = authHeader.substring(7);
@@ -65,9 +65,7 @@ public class JwtFilter extends AbstractGatewayFilterFactory<JwtFilter.Config> {
 
             } catch (Exception e) {
                 log.error("JWT validation failed", e);
-                response.setStatusCode(HttpStatus.UNAUTHORIZED);
-
-                return response.setComplete();
+                return handleUnauthorized(response, "JWT validation failed: " + e.getMessage());
             }
 
             log.info("Custom PRE filter: request uri -> {}", request.getURI());
@@ -77,6 +75,14 @@ public class JwtFilter extends AbstractGatewayFilterFactory<JwtFilter.Config> {
                 log.info("Custom POST filter: response status code -> {}", response.getStatusCode());
             }));
         };
+    }
+
+    private Mono<Void> handleUnauthorized(ServerHttpResponse response, String message) {
+        response.setStatusCode(HttpStatus.UNAUTHORIZED);
+        response.getHeaders().add("Content-Type", "application/json");
+        String body = String.format("{\"error\": \"%s\", \"message\": \"%s\"}", HttpStatus.UNAUTHORIZED.getReasonPhrase(), message);
+        DataBuffer buffer = response.bufferFactory().wrap(body.getBytes());
+        return response.writeWith(Mono.just(buffer));
     }
 
     @Data
