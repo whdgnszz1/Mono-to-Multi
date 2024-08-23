@@ -2,6 +2,7 @@ package com.jh.orderservice.controller;
 
 import com.jh.common.dto.ResponseMessage;
 import com.jh.common.dto.order.CreateOrderReqDto;
+import com.jh.common.utils.ParseRequestUtil;
 import com.jh.orderservice.dto.CreateOrderResDto;
 import com.jh.orderservice.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ public class OrderController {
 
     @PostMapping("create-order")
     public ResponseEntity<ResponseMessage> createOrder(HttpServletRequest request, @RequestBody List<CreateOrderReqDto> orderItems) {
-        int userId = 1;
+        int userId = new ParseRequestUtil().extractUserIdFromRequest(request);
 
         CreateOrderResDto orderResponse = orderService.createOrder(userId, orderItems);
 
