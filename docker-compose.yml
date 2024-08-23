@@ -25,6 +25,19 @@ services:
     networks:
       - commerce-network
 
+  gateway-service:
+    image: gateway-service:latest
+    container_name: gateway-service
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      JWT_SECRET_KEY: "7Leo7JeF7L2U7Iqk7ZmU7J207YyF7ZW064u56rWQ7Jyh6rO87KCV7J2E64Gd64K06rOg64KY66m06ryt7Leo7JeF7ZWY7Iuk7IiY7J6I7J2E6rKB64uI64ukLg=="
+    ports:
+      - "8000:8000"
+    networks:
+      - commerce-network
+
   order-service:
     image: order-service:latest
     container_name: order-service
@@ -57,16 +70,20 @@ services:
     networks:
       - commerce-network
 
-  gateway-service:
-    image: gateway-service:latest
-    container_name: gateway-service
+  user-service:
+    image: user-service:latest
+    container_name: user-service
     depends_on:
+      - mysql
       - eureka-server
     environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/commerce
+      SPRING_DATASOURCE_USERNAME: test
+      SPRING_DATASOURCE_PASSWORD: test
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
       JWT_SECRET_KEY: "7Leo7JeF7L2U7Iqk7ZmU7J207YyF7ZW064u56rWQ7Jyh6rO87KCV7J2E64Gd64K06rOg64KY66m06ryt7Leo7JeF7ZWY7Iuk7IiY7J6I7J2E6rKB64uI64ukLg=="
     ports:
-      - "8000:8000"
+      - "9000:9000"
     networks:
       - commerce-network
 
